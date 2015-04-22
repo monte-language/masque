@@ -1,0 +1,6 @@
+# We shouldn't need sudo.
+sudo: false
+language: haskell
+ghc: 7.6
+notifications:
+    irc: "irc.freenode.org#monte"
