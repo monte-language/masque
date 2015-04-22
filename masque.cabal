@@ -36,6 +36,7 @@ executable masque
                      , lens == 4.7.*
                      , mtl == 2.2.*
                      , network == 2.6.*
+                     , objective == 1.0.*
                      , semigroups == 0.15.*
                      , transformers == 0.4.*
   -- hs-source-dirs:      
