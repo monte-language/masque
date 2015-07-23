@@ -571,19 +571,6 @@ call o v as = left $ Refused o v as S.empty
 
 -- | Evaluation helpers
 
-bracketEitherT :: Monad m =>
-       EitherT e m a
-    -> (a -> EitherT e m b)
-    -> (a -> EitherT e m c)
-    -> EitherT e m c
-bracketEitherT before after thing = do
-    a <- before
-    r <- thing a `catchError` (\err -> after a >> left err)
-    -- If catchError already triggered, then `after` already ran *and* we are
-    -- in a Left state, so `after` will not run again here.
-    _ <- after a
-    return r
-
 scoped :: Monte a -> Monte a
 scoped action =
     bracketEitherT push pop (const action)
