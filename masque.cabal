@@ -20,6 +20,7 @@ executable masque
   ghc-options:         -Wall
   main-is:             Main.hs
   other-modules:       Masque.AST
+                     , Masque.Objects
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,
                        RecursiveDo,
@@ -37,7 +38,6 @@ executable masque
                      , lens == 4.7.*
                      , mtl == 2.2.*
                      , network == 2.6.*
-                     , objective == 1.0.*
                      , semigroups == 0.15.*
                      , transformers == 0.4.*
   -- hs-source-dirs:      
