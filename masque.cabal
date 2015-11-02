@@ -20,6 +20,7 @@ executable masque
   ghc-options:         -Wall
   main-is:             Main.hs
   other-modules:       Masque.AST
+                     , Masque.BAST
                      , Masque.Objects
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,
@@ -28,6 +29,7 @@ executable masque
                        ViewPatterns,
                        FlexibleContexts
   build-depends:       base >=4.6 && <4.7
+                     , bound == 1.0.*
                      , binary == 0.7.*
                      , bytestring == 0.10.*
                      , containers == 0.5.*
