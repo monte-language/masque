@@ -21,7 +21,6 @@ executable masque
   main-is:             Main.hs
   other-modules:       Masque.AST
                      , Masque.BAST
-                     , Masque.Objects
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,
                        RecursiveDo,
@@ -40,6 +39,7 @@ executable masque
                      , lens == 4.7.*
                      , mtl == 2.2.*
                      , network == 2.6.*
+                     , prelude-extras == 0.4.*
                      , semigroups == 0.15.*
                      , transformers == 0.4.*
   -- hs-source-dirs:      
