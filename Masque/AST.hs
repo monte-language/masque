@@ -160,3 +160,15 @@ nextTag = do
                 'Y' -> TryExpr <$> getExpr <*> getPatt <*> getExpr
                 'e' -> EscapeOnlyExpr <$> getPatt <*> getExpr
             modify (\(exprs, patts) -> (exprs ++ [expr], patts))
+
+getFullFile :: Get Expr
+getFullFile = do
+    -- Skip the magic for now.
+    skip 10
+    (exprs, _) <- execStateT loop ([], [])
+    return $ last exprs
+    where
+    loop = do
+        nextTag
+        finished <- lift isEmpty
+        unless finished loop

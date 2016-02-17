@@ -14,9 +14,9 @@ module Main where
 -- import Control.Monad.IO.Class
 -- import Control.Monad.Trans.Either
 -- import Control.Monad.Trans.RWS
--- import Data.Binary.Get
+import Data.Binary.Get
 -- import Data.Bits
--- import qualified Data.ByteString.Lazy as BSL
+import qualified Data.ByteString.Lazy as BSL
 -- import Data.Foldable (toList)
 -- import Data.IORef
 -- import Data.List
@@ -27,8 +27,8 @@ module Main where
 -- import qualified Data.Sequence as Seq
 -- import qualified Data.Set as S
 -- import Data.Unique
--- import Network.Socket
--- import System.Environment
+import Network.Socket
+import System.Environment
 -- import System.Exit
 -- import System.IO
 -- import Text.PrettyPrint.GenericPretty
@@ -607,9 +607,19 @@ import Masque.BAST
 -- runFile prelude envs path = do
 --     bs <- BSL.readFile path
 --     runAST prelude envs bs
--- 
+
+loadFile :: FilePath -> IO Expr
+loadFile path = do
+    bs <- BSL.readFile path
+    return $ runGet getFullFile bs
+
 main :: IO ()
-main = return ()
+main = withSocketsDo $ do
+    [fileName] <- getArgs
+    expr <- loadFile fileName
+    print expr
+    return ()
+
 -- main = withSocketsDo $ do
 --     let coreEnv = finalize coreScope :| []
 --     (preludeOrErr, _, _) <- runFile (Env M.empty) coreEnv "prelude.mast"

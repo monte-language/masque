@@ -8,7 +8,6 @@ import Prelude hiding (mapM, sequence)
 import Bound
 import Bound.Name
 import Bound.Scope
-import Bound.Var
 import Control.Applicative
 import Data.Foldable
 import Data.List
@@ -18,7 +17,6 @@ import Prelude.Extras
 import Masque.AST
 
 type BScope = Scope (Name String Int)
-type BVar = Var (Name String Int) String
 
 data BExpr a = BNullExpr
              | BCharExpr Char
