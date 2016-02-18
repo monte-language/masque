@@ -7,7 +7,6 @@
 module Main where
 
 -- import Control.Applicative
--- import Control.Lens
 -- import Control.Monad
 -- import Control.Monad.Error.Class
 -- import Control.Monad.Error.Lens
@@ -35,19 +34,14 @@ import System.Environment
 
 import Masque.AST
 import Masque.Objects
+import Masque.Vats
 
--- instance Show Unique where
---     show _ = "<unique>"
--- 
 -- data Err = Unknown
 --          | Unsettled
 --          | BadName String (S.Set String)
 --          | BadWrite String
 --          | Ejecting Unique Obj
 --          | Refused Obj String [Obj] (S.Set String)
---     deriving (Show)
--- 
--- data Vat = Vat { _unVat :: [(Obj, String, [Obj])] }
 --     deriving (Show)
 -- 
 -- data MonteState = MS { _envStack :: NonEmpty Env

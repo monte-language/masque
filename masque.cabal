@@ -20,7 +20,8 @@ executable masque
   ghc-options:         -Wall
   main-is:             Main.hs
   other-modules:       Masque.AST
-                     , Masque.BAST
+                     , Masque.Objects
+                     , Masque.Vats
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,
                        RecursiveDo,
