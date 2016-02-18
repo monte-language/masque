@@ -1,9 +1,3 @@
-{-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE RecursiveDo #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE ViewPatterns #-}
-
 module Masque.Objects where
 
 import Data.Foldable (toList)
@@ -12,7 +6,6 @@ import Data.List
 import qualified Data.Map as M
 import qualified Data.Sequence as Seq
 import Data.Unique
-import System.IO
 
 import Masque.AST
 
@@ -23,15 +16,9 @@ data Obj = NullObj
          | IntObj Integer
          | StrObj String
          | EjectorObj Unique
-         | BindingObj
-         | RefObj (IORef (Maybe Obj))
-         | ResObj (IORef (Maybe Obj))
-         | FountObj Handle (IORef Obj)
-         | DrainObj Handle
          | ConstListObj (Seq.Seq Obj)
          | ConstMapObj [(Obj, Obj)]
-         | BuiltinObj String
-         | UserObj Unique String Env (M.Map String [(Pattern, Node)]) [(Pattern, Node)]
+         | UserObj Unique String String Env (M.Map String [(Patt, Expr)]) [(Patt, Expr)]
 
 instance Show Obj where
     show NullObj = "null"
@@ -41,23 +28,23 @@ instance Show Obj where
     show (IntObj i) = show i
     show (StrObj s) = show s
     show (EjectorObj _) = "<ejector>"
-    show BindingObj = "<binding>"
-    show (RefObj _) = "<ref>"
-    show (ResObj _) = "<resolver>"
-    show (FountObj _ _) = "<fount>"
-    show (DrainObj _) = "<drain>"
     show (ConstListObj objs) = "[" ++ intercalate "," (map show (toList objs)) ++ "]"
     show (ConstMapObj pairs) = let showPair (k, v) = show k ++ " => " ++ show v
         in "[" ++ intercalate "," (map showPair pairs) ++ "]"
-    show (BuiltinObj name) = "<" ++ name ++ ">"
-    show (UserObj _ name _ _ _) = "<" ++ name ++ ">"
+    show (UserObj _ name _ _ _ _) = "<" ++ name ++ ">"
 
-data Binding = DefBind Obj
-             | VarBind { _bSlot, _bGuard :: IORef Obj }
+data Binding = FinalAnyBinding Obj
+             | FinalBinding Obj Obj
+             | VarAnyBinding (IORef Obj)
+             | VarBinding (IORef Obj) Obj
+             | FullBinding Obj
 
 instance Show Binding where
-    show (DefBind o) = "DefBind " ++ show o
-    show (VarBind _ _) = "VarBind ..."
+    show (FinalAnyBinding _) = "<binding FinalSlot[Any]>"
+    show (FinalBinding _ guard) = "<binding FinalSlot[" ++ show guard ++ "]>"
+    show (VarAnyBinding _) = "<binding VarSlot[Any]>"
+    show (VarBinding _ guard) = "<binding VarSlot[" ++ show guard ++ "]>"
+    show (FullBinding binding) = show binding
 
 newtype Env = Env { _unEnv :: M.Map String Binding }
     deriving (Show)

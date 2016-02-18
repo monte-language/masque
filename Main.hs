@@ -34,9 +34,8 @@ import System.Environment
 -- import Text.PrettyPrint.GenericPretty
 
 import Masque.AST
-import Masque.BAST
--- import Masque.Objects
--- 
+import Masque.Objects
+
 -- instance Show Unique where
 --     show _ = "<unique>"
 -- 
