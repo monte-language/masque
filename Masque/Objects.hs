@@ -1,5 +1,8 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Masque.Objects where
 
+import Control.Lens
 import Data.Foldable (toList)
 import Data.IORef
 import Data.List
@@ -48,3 +51,5 @@ instance Show Binding where
 
 newtype Env = Env { _unEnv :: M.Map String Binding }
     deriving (Show)
+
+makeLenses ''Env

@@ -5,6 +5,7 @@ module Masque.Monte where
 import Control.Lens
 import Control.Monad.Trans.Either
 import Control.Monad.Trans.State
+import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty(..))
 import qualified Data.Map as M
 import qualified Data.Set as S
@@ -76,3 +77,23 @@ unwrapInt _ = left WrongType
 unwrapStr :: Obj -> Monte String
 unwrapStr (StrObj s) = return s
 unwrapStr _ = left WrongType
+
+namesInScope :: Monte (S.Set String)
+namesInScope = do
+    envs <- use envStack
+    return $ S.unions (map (M.keysSet . _unEnv) (toList envs))
+
+-- | Lookup a name in the current scope.
+maybeLookupName :: String -> Monte (Maybe Binding)
+maybeLookupName name = preuse $ envStack . traverse . unEnv . ix name
+
+-- | Lookup a name in the current scope. If not found, transition to an
+--   erroring state with a helpful error message.
+lookupName :: String -> Monte Binding
+lookupName name = do
+    maybeBinding <- maybeLookupName name
+    case maybeBinding of
+        Just binding -> return binding
+        Nothing -> do
+            names <- namesInScope
+            left $ BadName name names
