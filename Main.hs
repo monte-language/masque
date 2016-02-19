@@ -34,27 +34,10 @@ import System.Environment
 
 import Masque.AST
 import Masque.Equality
+import Masque.Monte
 import Masque.Objects
 import Masque.Vats
 
--- data Err = Unknown
---          | Unsettled
---          | BadName String (S.Set String)
---          | BadWrite String
---          | Ejecting Unique Obj
---          | Refused Obj String [Obj] (S.Set String)
---     deriving (Show)
--- 
--- data MonteState = MS { _envStack :: NonEmpty Env
---                      , _vat :: Vat }
--- 
--- makeLenses ''Binding
--- makeLenses ''Env
--- makeLenses ''MonteState
--- makePrisms ''Err
--- 
--- type Monte = EitherT Err (RWST Env () MonteState IO)
--- 
 -- -- | Lenses
 -- 
 -- _DoubleObj :: Prism' Obj Double
