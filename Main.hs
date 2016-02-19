@@ -33,6 +33,7 @@ import System.Environment
 -- import Text.PrettyPrint.GenericPretty
 
 import Masque.AST
+import Masque.Equality
 import Masque.Objects
 import Masque.Vats
 
@@ -85,15 +86,6 @@ import Masque.Vats
 -- showEnv s = do
 --     envs <- use $ envStack . each . unEnv . to M.keys
 --     debug (s, "Current environment names:", envs)
--- 
--- -- | Object equality
--- 
--- sameEver :: Obj -> Obj -> Bool
--- sameEver NullObj NullObj = True
--- sameEver (BoolObj x) (BoolObj y) = x == y
--- sameEver (IntObj x) (IntObj y) = x == y
--- sameEver (UserObj x _ _ _ _) (UserObj y _ _ _ _) = x == y
--- sameEver _ _ = False
 -- 
 -- -- | Object message passing
 -- 
