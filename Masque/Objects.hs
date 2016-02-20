@@ -21,7 +21,7 @@ data Obj = NullObj
          | EjectorObj Unique
          | ConstListObj (Seq.Seq Obj)
          | ConstMapObj [(Obj, Obj)]
-         | UserObj Unique String String Env (M.Map String [(Patt, Expr)]) [(Patt, Expr)]
+         | UserObj Unique String Env (M.Map String [(Patt, Expr)]) [(Patt, Expr)]
 
 instance Show Obj where
     show NullObj = "null"
@@ -34,7 +34,7 @@ instance Show Obj where
     show (ConstListObj objs) = "[" ++ intercalate "," (map show (toList objs)) ++ "]"
     show (ConstMapObj pairs) = let showPair (k, v) = show k ++ " => " ++ show v
         in "[" ++ intercalate "," (map showPair pairs) ++ "]"
-    show (UserObj _ name _ _ _ _) = "<" ++ name ++ ">"
+    show (UserObj _ name _ _ _) = "<" ++ name ++ ">"
 
 data Binding = FinalAnyBinding Obj
              | FinalBinding Obj Obj

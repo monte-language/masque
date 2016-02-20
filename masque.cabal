@@ -21,6 +21,7 @@ executable masque
   main-is:             Main.hs
   other-modules:       Masque.AST
                      , Masque.Equality
+                     , Masque.Eval
                      , Masque.Objects
                      , Masque.Vats
   other-extensions:    DeriveDataTypeable,

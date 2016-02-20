@@ -25,7 +25,7 @@ sameEver left right = case (left, right) of
         bools <- zipWithM zippingTuples xs ys
         return $ and bools
     -- Should consider auditors, not just object identity.
-    (UserObj x _ _ _ _ _, UserObj y _ _ _ _ _) -> return $ x == y
+    (UserObj x _ _ _ _, UserObj y _ _ _ _) -> return $ x == y
     (_, _) -> return False
     where
     zippingTuples (k, v) (k', v') = do

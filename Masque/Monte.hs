@@ -7,6 +7,7 @@ import Control.Monad.Trans.Either
 import Control.Monad.Trans.State
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty(..))
+import qualified Data.List.NonEmpty as NE
 import qualified Data.Map as M
 import qualified Data.Set as S
 import Data.Unique
@@ -18,15 +19,17 @@ data Err = Refused
          | WrongType
          | Unsettled
          | Ejecting Unique Obj
-         | BadWrite String
+         | Exception Obj
+         | BadWrite String (S.Set String)
          | BadName String (S.Set String)
 
 instance Show Err where
     show Refused = "Refused"
     show WrongType = "WrongType"
     show Unsettled = "Unsettled"
-    show (BadWrite name) = "BadWrite " ++ show name
     show (Ejecting _ _) = "Ejecting"
+    show (Exception _) = "Exception"
+    show (BadWrite name _) = "BadWrite " ++ show name
     show (BadName name _) = "BadName " ++ show name
 
 
@@ -82,6 +85,17 @@ namesInScope :: Monte (S.Set String)
 namesInScope = do
     envs <- use envStack
     return $ S.unions (map (M.keysSet . _unEnv) (toList envs))
+
+-- | Run a Monte action within a fresh scope. Names defined by the action will
+--   be discarded afterwards.
+withFreshScope :: Monte a -> Monte a
+withFreshScope action =
+    bracketEitherT push pop (const action)
+    where
+    push = envStack %= (Env M.empty NE.<|)
+    -- Only works as long as the environment stack isn't overpopped during the
+    -- scoped action. Shouldn't happen.
+    pop _ = envStack %= (\(_ :| (a:as)) -> a :| as)
 
 -- | Lookup a name in the current scope.
 maybeLookupName :: String -> Monte (Maybe Binding)
