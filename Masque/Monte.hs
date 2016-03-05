@@ -92,9 +92,11 @@ withFreshScope :: Monte a -> Monte a
 withFreshScope action =
     bracketEitherT push pop (const action)
     where
+    push :: Monte ()
     push = envStack %= (Env M.empty NE.<|)
     -- Only works as long as the environment stack isn't overpopped during the
     -- scoped action. Shouldn't happen.
+    pop :: () -> Monte ()
     pop _ = envStack %= (\(_ :| (a:as)) -> a :| as)
 
 -- | Lookup a name in the current scope.
