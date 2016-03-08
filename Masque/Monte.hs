@@ -58,7 +58,7 @@ runPureMonte action = runMonte action (Env M.empty :| [])
 --
 --   For handling wrong types in input values, such as when unwrapping, use
 --   `WrongType` or one of its wrappers.
-refuse :: Monte ()
+refuse :: Monte a
 refuse = left Refused
 
 unwrapBool :: Obj -> Monte Bool

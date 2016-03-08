@@ -23,6 +23,7 @@ executable masque
                      , Masque.Equality
                      , Masque.Eval
                      , Masque.Objects
+                     , Masque.Objects.Bool
                      , Masque.Vats
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,
