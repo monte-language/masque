@@ -22,6 +22,8 @@ import Masque.Ejectors
 import Masque.Monte
 import Masque.Objects
 import Masque.Objects.Bool
+import Masque.Objects.Double
+import Masque.Objects.Int
 import Masque.Objects.Str
 
 -- | Smart constructor for a final binding; perform the guarding operation as
@@ -186,6 +188,8 @@ eval (TryExpr expr catchPatt catchBody) = catchError try recover
 -- | Deliver a message immediately to an object.
 call :: Obj -> String -> [Obj] -> [(Obj, Obj)] -> Monte Obj
 call obj verb args namedArgs = case obj of
-    BoolObj b -> callBool b verb args namedArgs
-    StrObj s  -> callStr s verb args namedArgs
-    _         -> error "Not written yet"
+    BoolObj b   -> callBool b verb args namedArgs
+    DoubleObj d -> callDouble d verb args namedArgs
+    IntObj i    -> callInt i verb args namedArgs
+    StrObj s    -> callStr s verb args namedArgs
+    _           -> error "Not written yet"

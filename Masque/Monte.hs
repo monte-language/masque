@@ -61,25 +61,36 @@ runPureMonte action = runMonte action (Env M.empty :| [])
 refuse :: Monte a
 refuse = left Refused
 
+-- | "It's the wrong type, Gromit!" ~ Wallace, implementing Monte
+wrongType :: Monte a
+wrongType = left WrongType
+
 unwrapBool :: Obj -> Monte Bool
 unwrapBool (BoolObj b) = return b
-unwrapBool _ = left WrongType
+unwrapBool _ = wrongType
 
 unwrapChar :: Obj -> Monte Char
 unwrapChar (CharObj c) = return c
-unwrapChar _ = left WrongType
+unwrapChar _ = wrongType
 
 unwrapDouble :: Obj -> Monte Double
 unwrapDouble (DoubleObj d) = return d
-unwrapDouble _ = left WrongType
+unwrapDouble _ = wrongType
+
+-- | Like `unwrapDouble`, but also promotes Ints to Doubles. Useful for doing
+--   some sorts of maths.
+coerceDouble :: Obj -> Monte Double
+coerceDouble (DoubleObj d) = return d
+coerceDouble (IntObj i) = return $ fromIntegral i
+coerceDouble _ = wrongType
 
 unwrapInt :: Obj -> Monte Integer
 unwrapInt (IntObj i) = return i
-unwrapInt _ = left WrongType
+unwrapInt _ = wrongType
 
 unwrapStr :: Obj -> Monte String
 unwrapStr (StrObj s) = return s
-unwrapStr _ = left WrongType
+unwrapStr _ = wrongType
 
 -- | Wrap a Bool in a Monte object.
 wrapBool :: Bool -> Monte Obj
@@ -88,6 +99,10 @@ wrapBool = return . BoolObj
 -- | Wrap a Char in a Monte object.
 wrapChar :: Char -> Monte Obj
 wrapChar = return . CharObj
+
+-- | Wrap a Double in a Monte object.
+wrapDouble :: Double -> Monte Obj
+wrapDouble = return . DoubleObj
 
 -- | Wrap an Int in a Monte object.
 wrapInt :: Integer -> Monte Obj
