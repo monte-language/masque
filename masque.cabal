@@ -24,6 +24,7 @@ executable masque
                      , Masque.Eval
                      , Masque.Objects
                      , Masque.Objects.Bool
+                     , Masque.Objects.Str
                      , Masque.Vats
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,

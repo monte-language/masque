@@ -81,6 +81,22 @@ unwrapStr :: Obj -> Monte String
 unwrapStr (StrObj s) = return s
 unwrapStr _ = left WrongType
 
+-- | Wrap a Bool in a Monte object.
+wrapBool :: Bool -> Monte Obj
+wrapBool = return . BoolObj
+
+-- | Wrap a Char in a Monte object.
+wrapChar :: Char -> Monte Obj
+wrapChar = return . CharObj
+
+-- | Wrap an Int in a Monte object.
+wrapInt :: Integer -> Monte Obj
+wrapInt = return . IntObj
+
+-- | Wrap a Str in a Monte object.
+wrapStr :: String -> Monte Obj
+wrapStr = return . StrObj
+
 namesInScope :: Monte (S.Set String)
 namesInScope = do
     envs <- use envStack
