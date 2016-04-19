@@ -3,7 +3,7 @@ module Masque.Equality where
 import Control.Monad
 import Data.Foldable (toList)
 
-import Masque.Objects
+import Masque.Monte
 
 -- | Whether two objects are extensionally equal. `Nothing` means that the
 --   objects are incomparable due to being unsettled.

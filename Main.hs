@@ -32,8 +32,7 @@ import Masque.AST
 import Masque.Equality
 import Masque.Eval
 import Masque.Monte
-import Masque.Objects
-import Masque.Vats
+import Masque.Objects.Builtin
 
 -- -- | Lenses on other data types
 -- -- These are destined for various upstreams at some point.

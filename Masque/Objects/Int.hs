@@ -3,7 +3,6 @@ module Masque.Objects.Int where
 import Data.Bits
 
 import Masque.Monte
-import Masque.Objects
 
 -- XXX I don't have the gumption to clean this up right now
 callInt :: Integer -> String -> [Obj] -> [(Obj, Obj)] -> Monte Obj

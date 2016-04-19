@@ -5,7 +5,6 @@ import Control.Monad.Trans.Either
 import Data.Unique
 
 import Masque.Monte
-import Masque.Objects
 
 -- | Run an action, catching a single specified ejector. If caught, the
 --   ejector's payload will be run through the given handler action.

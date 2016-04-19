@@ -19,12 +19,12 @@ executable masque
   other-modules:       Masque.AST
                      , Masque.Equality
                      , Masque.Eval
-                     , Masque.Objects
+                     , Masque.Monte
                      , Masque.Objects.Bool
+                     , Masque.Objects.Builtin
                      , Masque.Objects.Double
                      , Masque.Objects.Int
                      , Masque.Objects.Str
-                     , Masque.Vats
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,
                        RecursiveDo,
@@ -37,7 +37,7 @@ executable masque
                      , bytestring == 0.10.*
                      , containers == 0.5.*
                      , data-binary-ieee754 == 0.4.*
-                     , either == 4.3.*
+                     , either == 4.4.*
                      , free == 4.12.*
                      , GenericPretty == 1.2.*
                      , lens == 4.13.*

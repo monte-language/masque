@@ -20,7 +20,6 @@ import Data.Unique
 import Masque.AST
 import Masque.Ejectors
 import Masque.Monte
-import Masque.Objects
 import Masque.Objects.Bool
 import Masque.Objects.Double
 import Masque.Objects.Int

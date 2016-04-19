@@ -4,7 +4,6 @@ import Control.Monad
 import Data.List
 
 import Masque.Monte
-import Masque.Objects
 
 -- | Pass a message to a Str.
 callStr :: String -> String -> [Obj] -> [(Obj, Obj)] -> Monte Obj

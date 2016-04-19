@@ -1,7 +1,6 @@
 module Masque.Objects.Double where
 
 import Masque.Monte
-import Masque.Objects
 
 ordering :: Ord a => a -> a -> Monte Obj
 ordering x y = wrapInt $ case x `compare` y of
