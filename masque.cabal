@@ -23,7 +23,9 @@ executable masque
                      , Masque.Objects.Bool
                      , Masque.Objects.Builtin
                      , Masque.Objects.Double
+                     , Masque.Objects.Ejector
                      , Masque.Objects.Int
+                     , Masque.Objects.Safe
                      , Masque.Objects.Str
   other-extensions:    DeriveDataTypeable,
                        DeriveGeneric,

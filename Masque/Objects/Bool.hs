@@ -1,6 +1,7 @@
 module Masque.Objects.Bool where
 
 import Masque.Monte
+import Masque.Objects.Builtin
 
 -- | Pass a message to a Bool.
 callBool :: Bool -> String -> [Obj] -> [(Obj, Obj)] -> Monte Obj

@@ -29,10 +29,11 @@ import System.Environment
 -- import Text.PrettyPrint.GenericPretty
 
 import Masque.AST
+import Masque.Ejectors
 import Masque.Equality
 import Masque.Eval
 import Masque.Monte
-import Masque.Objects.Builtin
+import Masque.Objects.Safe
 
 -- -- | Lenses on other data types
 -- -- These are destined for various upstreams at some point.
@@ -69,11 +70,8 @@ import Masque.Objects.Builtin
 --     , "boolean"
 --     , "connectTo"
 --     , "stdout"
---     , "throw"
 --     , "traceln"
 --     ]
--- 
--- call (EjectorObj u) "run" [obj] = left $ Ejecting u obj
 -- 
 -- call (RefObj ref) verb args = do
 --     target <- liftIO $ readIORef ref
@@ -135,9 +133,6 @@ import Masque.Objects.Builtin
 --         _            -> left Unknown
 -- call (BuiltinObj "stdout") "print" [StrObj s] = do
 --     liftIO $ putStr s
---     return NullObj
--- call (BuiltinObj "throw") "eject" [ej, payload] = do
---     fire ej payload
 --     return NullObj
 -- call (BuiltinObj "traceln") "run" args = do
 --     liftIO $ print args
